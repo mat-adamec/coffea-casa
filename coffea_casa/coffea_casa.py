@@ -18,6 +18,8 @@ CA_FILE = SECRETS_DIR / "ca.pem"
 CERT_FILE = SECRETS_DIR / "hostcert.pem"
 # XCache
 XCACHE_FILE = SECRETS_DIR / "xcache_token"
+# pip
+PIP_REQUIREMENTS = '$HOME/requirements.txt'
 
 
 def merge_dicts(*dict_args):
@@ -130,6 +132,11 @@ class CoffeaCasaCluster(HTCondorCluster):
             job_config["protocol"] = "tcp://"
             input_files = [XCACHE_FILE]
             files = ", ".join(str(path) for path in input_files)
+            
+       # read pip requirements file
+       if os.path.exists("requirements.txt"):
+            input_files.append(PIP_REQUIREMENTS)
+    
         ## Networking settings
         try:
             external_ip = os.environ["HOST_IP"]
