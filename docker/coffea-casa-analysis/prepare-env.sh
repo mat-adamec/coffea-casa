@@ -12,6 +12,10 @@ fi
 if [ -e "$PWD/environment.yml" ]; then
     echo "environment.yml found. Installing packages"
     /opt/conda/bin/conda env update -f /opt/app/environment.yml
+    
+elif [ -e "$PWD/requirements.txt" ]; then
+    echo "requirements.txt found. Installing packages"
+    /opt/conda/bin/python -m pip install -r $PWD/requirements.txt
 else
     echo "no environment.yml"
 fi
