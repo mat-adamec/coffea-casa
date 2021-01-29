@@ -6,21 +6,20 @@ set -x
 WORKER_ID=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e 's/^0*//' | head --bytes 5)
 sed --in-place "s/kubernetes-worker-%(ENV_WORKER_ID)s/kubernetes-worker-${WORKER_ID}/g" /etc/supervisor/supervisord.conf
 
-<<<<<<< HEAD
-if [ -e "$PWD/environment.yml" ]; then
+if [ -e "$HOME/environment.yml" ]; then
     echo "environment.yml found. Installing packages"
     /opt/conda/bin/conda env update -f /opt/app/environment.yml
-    
-elif [ -e "$PWD/requirements.txt" ]; then
-    echo "requirements.txt found. Installing packages"
-    /opt/conda/bin/python -m pip install -r $PWD/requirements.txt
-=======
-if [ -e "$HOME/environment.yml" ]; then
-    echo "conda: environment.yml found. Installing packages"
-    /opt/conda/bin/conda env update -f $HOME/environment.yml
->>>>>>> 151bdf8a111164bc5cea9651a7c6428d7084cd48
+
 else
     echo "no environment.yml"
+fi
+
+if [ -e "$HOME/requirements.txt" ]; then
+    echo "requirements.txt found. Installing packages"
+    /opt/conda/bin/python -m pip install -r $PWD/requirements.txt
+    
+else
+    echo "no requirements.txt"
 fi
 
 if [ "$EXTRA_CONDA_PACKAGES" ]; then
