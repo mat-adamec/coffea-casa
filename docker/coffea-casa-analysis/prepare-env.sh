@@ -7,17 +7,15 @@ WORKER_ID=$(cat /dev/urandom | tr -dc '0-9' | fold -w 256 | head -n 1 | sed -e '
 sed --in-place "s/kubernetes-worker-%(ENV_WORKER_ID)s/kubernetes-worker-${WORKER_ID}/g" /etc/supervisor/supervisord.conf
 
 if [ -e "$HOME/environment.yml" ]; then
-    echo "environment.yml found. Installing packages"
-    /opt/conda/bin/conda env update -f /opt/app/environment.yml
-
+    echo "conda: environment.yml found. Installing packages"
+    /opt/conda/bin/conda env update -f $HOME/environment.yml
 else
     echo "no environment.yml"
 fi
 
 if [ -e "$HOME/requirements.txt" ]; then
-    echo "requirements.txt found. Installing packages"
-    /opt/conda/bin/python -m pip install -r $PWD/requirements.txt
-    
+    echo "pip: requirements.txt found. Installing packages"
+    /opt/conda/bin/python -m pip install -r $HOME/requirements.txt
 else
     echo "no requirements.txt"
 fi
