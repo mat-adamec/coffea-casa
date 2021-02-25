@@ -1,6 +1,6 @@
 FROM coffeateam/coffea-casa:0.4.1
 
-
+USER root
 
 RUN pip install --ignore-installed --no-cache-dir \
     git+git://github.com/mat-adamec/coffea-casa.git@master#egg=coffea_casa
