@@ -121,7 +121,7 @@ class CoffeaCasaCluster(HTCondorCluster):
         if (CA_FILE.is_file() and CERT_FILE.is_file() and cls.security().get_connection_args("scheduler")["require_encryption"]):
             job_config["protocol"] = "tls://"
             job_config["security"] = cls.security()
-            input_files = [CA_FILE, CERT_FILE, XCACHE_FILE]
+            input_files = [CA_FILE, CERT_FILE, XCACHE_FILE, PIP_REQUIREMENTS, CONDA_ENV]
             files = ", ".join(str(path) for path in input_files)
         elif (
             security and security.get_connection_args("scheduler")["require_encryption"]
@@ -137,12 +137,12 @@ class CoffeaCasaCluster(HTCondorCluster):
             files = ", ".join(str(path) for path in input_files)
             
        # read pip requirements file
-        if os.path.exists(PIP_REQUIREMENTS):
-            input_files.append(PIP_REQUIREMENTS)
+#         if os.path.exists(PIP_REQUIREMENTS):
+#             input_files.append(PIP_REQUIREMENTS)
             
-        # read conda environment file
-        if os.path.exists(CONDA_ENV):
-            input_files.append(CONDA_ENV)
+#         # read conda environment file
+#         if os.path.exists(CONDA_ENV):
+#             input_files.append(CONDA_ENV)
     
         ## Networking settings
         try:
