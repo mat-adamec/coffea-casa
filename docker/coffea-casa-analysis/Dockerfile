@@ -1,4 +1,4 @@
-FROM coffeateam/coffea-casa-analysis:0.4.0
+FROM coffeateam/coffea-casa-analysis:0.4.1
     
 USER root
 ADD prepare-env.sh /usr/local/bin/
