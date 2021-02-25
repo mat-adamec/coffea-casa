@@ -16,12 +16,13 @@ DEFAULT_CONTAINER_PORT = 8786
 SECRETS_DIR = Path("/etc/cmsaf-secrets")
 CA_FILE = SECRETS_DIR / "ca.pem"
 CERT_FILE = SECRETS_DIR / "hostcert.pem"
+HOME_DIR = Path(os.getenv("HOME"))
 # XCache
 XCACHE_FILE = SECRETS_DIR / "xcache_token"
 # pip
-PIP_REQUIREMENTS = os.getenv('HOME') + 'requirements.txt'
+PIP_REQUIREMENTS = HOME_DIR / "requirements.txt"
 # conda
-CONDA_ENV = os.getenv('HOME') + '/environment.yaml'
+CONDA_ENV = HOME_DIR / "environment.yaml"
 
 
 def merge_dicts(*dict_args):
