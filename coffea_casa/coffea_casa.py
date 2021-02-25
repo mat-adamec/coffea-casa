@@ -121,7 +121,7 @@ class CoffeaCasaCluster(HTCondorCluster):
         if (CA_FILE.is_file() and CERT_FILE.is_file() and cls.security().get_connection_args("scheduler")["require_encryption"]):
             job_config["protocol"] = "tls://"
             job_config["security"] = cls.security()
-            input_files = [CA_FILE, CERT_FILE, XCACHE_FILE, PIP_REQUIREMENTS, CONDA_ENV]
+            input_files = [CA_FILE, CERT_FILE, XCACHE_FILE]
             files = ", ".join(str(path) for path in input_files)
         elif (
             security and security.get_connection_args("scheduler")["require_encryption"]
