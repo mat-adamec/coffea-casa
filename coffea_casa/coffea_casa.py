@@ -19,9 +19,9 @@ CERT_FILE = SECRETS_DIR / "hostcert.pem"
 # XCache
 XCACHE_FILE = SECRETS_DIR / "xcache_token"
 # pip
-PIP_REQUIREMENTS = '$HOME/requirements.txt'
+PIP_REQUIREMENTS = os.getenv('HOME') + 'requirements.txt'
 # conda
-CONDA_ENV = '$HOME/environment.yaml'
+CONDA_ENV = os.getenv('HOME') + '/environment.yaml'
 
 
 def merge_dicts(*dict_args):
@@ -136,11 +136,11 @@ class CoffeaCasaCluster(HTCondorCluster):
             files = ", ".join(str(path) for path in input_files)
             
        # read pip requirements file
-        if os.path.exists(os.getenv('HOME') + '/requirements.txt'):
+        if os.path.exists(PIP_REQUIREMENTS):
             input_files.append(PIP_REQUIREMENTS)
             
         # read conda environment file
-        if os.path.exists(os.getenv('HOME') + '/environment.yaml'):
+        if os.path.exists(CONDA_ENV):
             input_files.append(CONDA_ENV)
     
         ## Networking settings
